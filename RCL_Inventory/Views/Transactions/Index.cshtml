@@ -1,0 +1,343 @@
+﻿@model PurchaseProductViewModels
+
+@{
+    ViewData["Title"] = "Transaction";
+}
+
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+<link rek="stylesheet" href="~/css/transactions.css" />
+
+
+<hr />
+<h2 class="title">Transaction Type</h2>
+<hr />
+
+@{ if (TempData["success"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-success mt-2">
+            @TempData["success"]
+        </div>
+    }
+}
+
+
+
+<div class="card">
+    <form asp-action="Index" method="post">
+        <div class="card-body row d-flex justify-content-center">
+            <input hidden value="@Model.TransactionTypeId" />
+
+            <div class="form-group col-md d-flex justify-content-center">
+                <div class="mr-2">
+                    <button type="submit" asp-route-id="1" class="btn btn-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"></path>
+                        </svg>  Purchase Transaction
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md d-flex justify-content-center">
+                <div class="mr-2">
+                    <button type="submit" asp-route-id="2" class="btn btn-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"></path>
+                        </svg>  Sales Transaction
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group col-md d-flex justify-content-center">
+                <div class="mr-2">
+                    <button type="submit" asp-route-id="3" class="btn btn-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"></path>
+                        </svg>  Shrinkage Transaction
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+@if (Model.TransactionTypeId == 1 || Model.TransactionTypeId == 2 || Model.TransactionTypeId == 3)
+{
+    <!--string contex = Model.TransactionsList.Where(t => t.TransactionTypeId == Model.TransactionTypeId).ToString();-->
+
+
+    <div class="card-header">
+
+
+        @if (Model.TransactionTypeId == 2)
+        {
+            <h3>Sales Transaction Table</h3>
+        }
+        else if (Model.TransactionTypeId == 1)
+        {
+            <h3>Purchase Transaction Table</h3>
+        }
+        else if (Model.TransactionTypeId == 3)
+        {
+            <h3>Shrinkage Table</h3>
+        }
+        else
+        {
+            <h3>Transaction Table</h3>
+        }
+
+    </div>
+
+    <div class="card">
+        <div class="card-body row d-flex justify-content-center">
+            <div class="card-body col-md">
+                <table id="myTable" class="table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Product.Category.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Product)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.TransactionType.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Supplier.Name)
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TransactionsList)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.Category.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransactionType.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.TransactionId" class="text-info"><img src="~/images/edit.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a> |
+                                    <a asp-action="Details" asp-route-id="@item.TransactionId" class="text-success"><img src="~/images/details.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a> |
+                                    <a asp-action="Delete" asp-route-id="@item.TransactionId" class="text-danger"><img src="~/images/delete.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="card-body row d-flex justify-content-center">
+
+                <!--  Purchase -->
+
+
+                @if (Model.TransactionTypeId == 1)
+                {
+                    <div class="form-group col-md">
+                        <div style="padding-top:10px; padding-bottom:10px; ">
+                            <a asp-action="CreatePurchase" asp-route-id="1" class="btn btn-light" style="color:black; font-family:sans-serif">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                </svg> Create a New Product Purchase
+                            </a>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group col-md d-flex justify-content-end">
+                            <div class="mr-2">
+                                <a asp-action="SubmitTransactions" asp-route-id="1" class="btn btn-light" style="color:black; font-family:sans-serif">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                    </svg>  Submit
+                                </a>
+                            </div>
+                        </div>*@
+                }
+                else if (Model.TransactionTypeId == 2)
+                {
+                    <div class="form-group col-md">
+                        <div style="padding-top:10px; padding-bottom:10px; ">
+                            <a asp-action="CreatePurchase" asp-route-id="2" class="btn btn-light" style="color:black; font-family:sans-serif">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 10px" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                </svg> Create a New Product Sale
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                }
+                else if (Model.TransactionTypeId == 3)
+                {
+                    <div class="form-group col-md">
+                        <div style="padding-top:10px; padding-bottom:10px; ">
+                            <a asp-action="CreatePurchase" asp-route-id="3" class="btn btn-light" style="color:black; font-family:sans-serif">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" style="padding-right: 10px; margin-bottom: 8px" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                </svg> Create a New Shrinkage
+                            </a>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <h3>Error</h3>
+                }
+
+            </div>
+
+
+
+        </div>
+    </div>
+}
+else
+{
+
+
+    <div class="card-header">
+
+
+        @if (Model.TransactionTypeId == 2)
+        {
+            <h3>Sales Transaction Table</h3>
+        }
+        else if (Model.TransactionTypeId == 1)
+        {
+            <h3>Purchase Transaction Table</h3>
+        }
+        else if (Model.TransactionTypeId == 3)
+        {
+            <h3>Product Loss Table</h3>
+        }
+        else
+        {
+            <h3>Transaction Table</h3>
+        }
+
+    </div>
+
+
+    <div class="card">
+        <div class="card-body row d-flex justify-content-center">
+
+            <div class="card-body col-md">
+                <table id="myTable" class="table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Product.Category.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Product)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.TransactionType.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Transaction.Supplier.Name)
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TransactionsList)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.Category.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TransactionType.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.TransactionId" class="text-info"><img src="~/images/edit.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a> |
+                                    <a asp-action="Details" asp-route-id="@item.TransactionId" class="text-success"><img src="~/images/details.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a> |
+                                    <a asp-action="Delete" asp-route-id="@item.TransactionId" class="text-danger"><img src="~/images/delete.png" alt="..." class="img-responsive img-rounded" style="width: 30px"></a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

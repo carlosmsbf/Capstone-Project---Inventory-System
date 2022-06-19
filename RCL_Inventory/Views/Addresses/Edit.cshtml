@@ -1,0 +1,92 @@
+﻿@model RCL_Inventory.Models.Address
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
+
+<hr />
+<h2 class="title">Edit</h2>
+<hr />
+
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
+}
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="AddressId" />
+    <div class="card mt-3">
+        <div class="card-header"> Address Information</div>
+        <div class="card-body">
+
+
+            <div class="card-body row">
+                <div class="col-md">
+
+                    <div class="form-group col-md">
+                        <label asp-for="Country" class="control-label d-flex justify-content-center"></label>
+                        <input asp-for="Country" class="form-control" />
+                        <span asp-validation-for="Country" class="text-danger d-flex justify-content-center"></span>
+                    </div>
+                    <div class="form-group col-md">
+                        <label asp-for="Province" class="control-label d-flex justify-content-cente"></label>
+                        <input asp-for="Province" class="form-control" />
+                        <span asp-validation-for="Province" class="text-danger d-flex justify-content-center"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md">
+                    <div class="form-group col-md">
+                        <label asp-for="City" class="control-label d-flex justify-content-center"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger d-flex justify-content-center"></span>
+                    </div>
+
+
+                    <div class="form-group col-md">
+
+                        <label asp-for="PostalCode" class="control-label d-flex justify-content-center"></label>
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode" class="text-danger d-flex justify-content-center"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md">
+                <div class="form-group col-md">
+                    <label asp-for="Street" class="control-label d-flex justify-content-center"></label>
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger d-flex justify-content-center"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-2">
+        <div class="mr-2">
+            <input type="submit" class="btn btn-primary mr-2" style="font-size:20px" value="Save" />|
+        </div>
+        <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+            <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+        </div>
+    </div>
+
+
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

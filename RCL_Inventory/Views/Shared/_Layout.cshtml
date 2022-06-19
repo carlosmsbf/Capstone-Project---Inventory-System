@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RCL_Inventory</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="~/css/sitee.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/sitee.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
+    <link rel="stylesheet" href="~/css/category.css" />
+</head>
+
+<body>
+    <header>
+        <div id="main">
+            <div class="container">
+                <div style="margin-top:10px;margin-bottom:10px;text-align:center;">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/logoRCLfinal.png" style="width:100px;margin-bottom:15px;position:center">
+                    </a>
+                    <h3 class="title">Inventory Management Solutions</h3>
+                </div>
+                <nav>
+                    <div class="nav-fostrap text-center">
+                        <ul>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a></li>
+
+                            <li>
+                                <a asp-area="" asp-controller="Categories" asp-action="Index">Categories<span class="arrow-down"></span></a>
+
+                                <ul class="dropdown">
+                                    <li><a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a></li>
+                                    <li><a asp-area="" asp-controller="Categories" asp-action="Create">New Product Category</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a asp-area="" asp-controller="Products" asp-action="Index">Products<span class="arrow-down"></span></a>
+                                <ul class="dropdown">
+                                    <li><a asp-area="" asp-controller="Products" asp-action="Index">Products</a></li>
+                                    <li><a asp-area="" asp-controller="Products" asp-action="Create">Create a new Product</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li><a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a></li>
+
+
+
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="Addresses" asp-action="Index">Addresses<span class="arrow-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li><a asp-area="" asp-controller="Addresses" asp-action="Index">Address</a></li>
+                                        <li><a asp-area="" asp-controller="Addresses" asp-action="Create">Create new Address</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers<span class="arrow-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li><a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a></li>
+                                        <li><a asp-area="" asp-controller="Suppliers" asp-action="Create">Create new Supplier</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+
+
+                            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <li><a asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
+                            }
+
+
+                            @inject SignInManager<User> signInManager
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                // signed-in user - Log Out button and username
+                                <li>
+                                    <form method="post" asp-action="Logout" asp-controller="Account" asp-area="">
+                                        <button type="submit" class="btn btn-outline-light"><i class="fa fa-unlock" aria-hidden="true"></i></button>
+                                        @*<span class="text-light">Hello @User.Identity.Name!</span>*@
+                                        <icon-icon><i class='fas fa-user-alt' style="font-size:larger"> @User.Identity.Name</i>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                // anonymous user - Register link and Log In button
+
+                                <li><a asp-area="" asp-controller="ContactUs" asp-action="Index">Contact Us</a></li>
+                                <li><a asp-area="" asp-controller="AboutUs" asp-action="Index">About</a></li>
+                                <li class="nav-item">
+                                    <a asp-area="" asp-controller="Account" asp-action="Login"><i class="fa fa-lock"> Log In</i></a>
+                                    @*<a asp-action="Login" asp-controller="Account"
+                                        asp-area="" class="btn btn-outline-light">Log In</a>*@
+                                </li>
+                            }
+
+                            @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                                {
+                                    // get current action
+                                    var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+                                    <li class="nav-item @Nav.Active("Register", action)">
+                                        <a asp-action="Register" asp-controller="Account"
+                                           asp-area="" class="nav-link">Register</a>
+                                    </li>
+                                }*@
+
+
+                            @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin"
+                                           my-mark-area-active>
+                                            <span class="fas fa-cog"></span>&nbsp;Admin
+                                        </a>
+                                    </li>
+                                }*@
+
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+
+            <div class="nav-bg-fostrap">
+                <div class="navbar-fostrap"> <span></span> <span></span> <span></span> </div>
+                <a href="" class="title-mobile"></a>
+            </div>
+            <div class='content'>
+            </div>
+        </div>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div style="margin-top:auto;">
+                &copy; 2022 - RCL Solutions
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

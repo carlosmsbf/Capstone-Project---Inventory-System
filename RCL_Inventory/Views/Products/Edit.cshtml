@@ -1,0 +1,116 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
+<hr />
+<h2 class="title">Edit Product</h2>
+<hr />
+
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="ProductId" />
+
+
+    <div hidden class="form-group">
+        <input id="CategoryId" asp-for="Product.CategoryId" class="form-control" />
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">Category List</div>
+        <div class="card-body">
+            <table id="CategoryTable" class="table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.CategoryId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.Name)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CategoriesList)
+                    {
+                        <tr onclick="passCategoryId('@item.CategoryId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mt-3 ">
+        <div class="card-header"> Product Information</div>
+        <div class="card-body row">
+
+            <div class="form-group col-md">
+                <label asp-for="Product.Name" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="Product.Brand" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="Product.Brand" class="form-control" />
+                <span asp-validation-for="Product.Brand" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group col-md">
+            <label asp-for="Product.Description" class="control-label d-flex justify-content-center"></label>
+            <input asp-for="Product.Description" class="form-control" />
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-2">
+        <div class="mr-2">
+            <input type="submit" class="btn btn-primary mr-2" style="font-size:20px" value="Save" />|
+        </div>
+        <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+            <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+        </div>
+    </div>
+
+
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var CategoryTable = $('#CategoryTable').DataTable();
+
+            $('#CategoryTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    CategoryTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passCategoryId(CategoryId) {
+            document.getElementById('CategoryId').value = CategoryId;
+            console.log(CategoryId);
+        }
+
+    </script>
+}

@@ -1,0 +1,236 @@
+﻿@model PurchaseProductViewModels
+<!--IEnumerable<RCL_Inventory.Models.ViewModels.PurchaseProductViewModels>-->
+
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+
+
+
+@{if (Model.TransactionTypeId == 1)
+    {
+        ViewData["Title"] = "Create a New Purchase";
+        <hr />
+        <h2 class="title">Create a New Purchase</h2>
+        <hr />
+
+    }
+    else if (Model.TransactionTypeId == 2)
+    {
+        ViewData["Title"] = "Create a New Sale";
+        <hr />
+        <h2 class="title">Create a New Sale</h2>
+        <hr />
+    }
+    else
+    {
+        ViewData["Title"] = "Create a New Loss";
+        <hr />
+        <h2 class="title">Create a New Shrinkage</h2>
+        <hr />
+    }
+
+}
+@{ if (TempData["failed"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-danger mt-2">
+            @TempData["failed"]
+        </div>
+    }
+}
+
+
+
+<form asp-action="CreatePurchase" method="post">
+    <div asp-validation-summary="ModelOnly" style="color:#b91010"></div>
+
+    <!-- Invisivel atributes -->
+    <div hidden class="form-group">
+        <input id="ProductId" asp-for="Transaction.ProductId" class="form-control" />
+    </div>
+    <div hidden class="form-group">
+        <input id="SupplierId" asp-for="Transaction.SupplierId" class="form-control" />
+    </div>
+    <!--Product Table-->
+    <div class="card">
+        <div class="card-header">Products List</div>
+        <div class="card-body">
+            <table id="productTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.Brand)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductsList)
+                    {
+                        <tr onclick="passProductId('@item.ProductId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Brand)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <span asp-validation-for="Transaction.ProductId" class="text-danger d-flex justify-content-center"></span>
+    <!--Product Table-->
+    <div class="card mt-3">
+        <div class="card-header">Suppliers List</div>
+        <div class="card-body">
+            <table id="supplierTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Supplier.SupplierId)
+
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Supplier.Name)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SuppliersList)
+                    {
+                        <tr onclick="passSupplierId('@item.SupplierId')">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SupplierId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <span asp-validation-for="Transaction.SupplierId" class="text-danger d-flex justify-content-center"></span>
+
+    <div class="card mt-3 ">
+        <div class="card-header"> Transaction Detail</div>
+        <div class="card-body row">
+            <div class="form-group col-md">
+                <div class="form-group">
+                    <label asp-for="Transaction.Date" class="control-label d-flex justify-content-center"></label>
+                    <input asp-for="Transaction.Date" class="form-control" />
+                    <span asp-validation-for="Transaction.Date" class="text-danger d-flex justify-content-center"></span>
+                </div>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="@Model.Transaction.Quantity" class="control-label d-flex justify-content-center"></label>
+                <input asp-for="@Model.Transaction.Quantity" class="form-control" />
+                <span asp-validation-for="Transaction.Quantity" class="text-danger d-flex justify-content-center"></span>
+            </div>
+        </div>
+    </div>
+
+    @{if (Model.TransactionTypeId == 1)
+        {
+            <div class="d-flex justify-content-center mt-2">
+                <div>
+                    <input type="submit" class="btn btn-primary mr-2" style="font-size:20px" value="Create" />|
+                </div>
+                <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+                    <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+                </div>
+            </div>
+        }
+        else if (Model.TransactionTypeId == 2)
+        {
+            <div class="d-flex justify-content-center mt-2">
+                <div class="mr-2">
+                    <input type="submit" class="btn btn-primary mr-2" style="font-size:20px" value="Create" />|
+                </div>
+                <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+                    <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center mt-2">
+                <div class="mr-2">
+                    <input type="submit" class="btn btn-primary mr-2" style="font-size:20px" value="Create" />|
+                </div>
+                <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+                    <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+                </div>
+            </div>
+        }
+
+    }
+
+
+
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var productTable = $('#productTable').DataTable();
+
+            $('#productTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    productTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+        function passProductId(ProductId) {
+            document.getElementById('ProductId').value = ProductId;
+            console.log(ProductId);
+        }
+
+
+
+        $(document).ready(function () {
+            var supplierTable = $('#supplierTable').DataTable();
+
+            $('#supplierTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    supplierTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+
+        function passSupplierId(SupplierId) {
+            document.getElementById('SupplierId').value = SupplierId;
+            console.log(SupplierId);
+        }
+
+
+    </script>
+}

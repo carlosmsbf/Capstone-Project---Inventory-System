@@ -1,0 +1,92 @@
+﻿@model IEnumerable<RCL_Inventory.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/product.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+
+
+
+<hr />
+<h2 class="title">Suppliers</h2>
+<hr />
+
+
+
+@{ if (TempData["success"] != null)
+    {
+        <div class="d-flex justify-content-center alert alert-success mt-2">
+            @TempData["success"]
+        </div>
+    }
+}
+
+
+<div class="card">
+    <div class="card-header">Suppliers List</div>
+    <div class="card-body">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telephone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AccountNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address.City)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AccountNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address.City)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.SupplierId"><img src="~/images/edit.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a> |
+                            <a asp-action="Details" asp-route-id="@item.SupplierId"><img src="~/images/details.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a> |
+                            <a asp-action="Delete" asp-route-id="@item.SupplierId"><img src="~/images/delete.png" alt="..." class="img-responsive img-rounded" style="width:30px"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p style="padding-left:1em">
+        <a asp-action="Create" class="btn btn-primary" style="width:65px;font-size:xx-large;">+</a>
+    </p>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,68 @@
+﻿
+
+
+.cardBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 35px;
+    align-content: space-evenly;
+}
+
+.card {
+    position: relative;
+    background-color: #025ea1;
+    color: white;
+    padding: 30px;
+    box-shadow: 0 7px 25px;
+    white-space: normal;
+    border-radius: 30px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.contentBox {
+    position: relative;
+    font-weight: 500;
+    font-size: larger;
+    color: white;
+}
+
+.optionBox {
+    position: relative;
+    font-weight: 300;
+    font-size: large;
+    color: azure;
+}
+
+.iconBx {
+    font-size: 3.5em;
+    text-align: center;
+}
+
+
+
+
+
+.card:hover {
+    background-color: #2980B9;
+}
+
+.cardBox .card:hover .contentBox,
+.cardBox .card:hover .optionBox,
+.cardBox .card:hover .iconBx {
+    color: white;
+}
+
+
+.midleLine {
+    border: 0;
+    margin: 0;
+    width: 100%;
+    height: 4px;
+    background: #bdbfc1;
+    position: center
+}

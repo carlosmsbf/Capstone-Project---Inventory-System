@@ -1,0 +1,104 @@
+﻿@model RCL_Inventory.Models.Supplier
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/category.css" />
+
+<hr />
+<h2 class="title">Details</h2>
+<hr />
+<link rel="stylesheet" href="~/css/product.css" />
+
+
+<div class="card mt-3">
+    <div class="card-header"> Supplier Information</div>
+    <div class="card-body">
+
+
+        <div class="card-body row">
+            <div class="col-md">
+
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.SupplierId)</label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.SupplierId)" />
+                </div>
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.Telephone) </label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Telephone)" />
+                </div>
+
+            </div>
+
+            <div class="col-md">
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.Name)</label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Name)" />
+                </div>
+
+
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center"> @Html.DisplayNameFor(model => model.AccountNumber) </label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.AccountNumber)" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header"> Address Information</div>
+    <div class="card-body">
+
+
+        <div class="card-body row">
+            <div class="col-md">
+
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.Address.Country)</label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Address.Country)" />
+                </div>
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.Address.Province) </label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Address.Province)" />
+                </div>
+
+            </div>
+
+            <div class="col-md">
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.Address.City)</label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Address.City)" />
+                </div>
+
+
+                <div class="form-group col-md">
+                    <label class="d-flex justify-content-center"> @Html.DisplayNameFor(model => model.Address.PostalCode) </label>
+                    <input class="form-control" disabled value="@Html.DisplayFor(model => model.Address.PostalCode)" />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md">
+            <div class="form-group col-md">
+                <label class="d-flex justify-content-center">@Html.DisplayNameFor(model => model.Address.Street)</label>
+                <input class="form-control" disabled value="@Html.DisplayFor(model => model.Address.Street)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="d-flex justify-content-center mt-2">
+    <div class="mr-2">
+        <a asp-action="Edit" asp-route-id="@Model.SupplierId" input type="submit" class="btn btn-primary mr-2" style="font-size:20px">Edit</a>|
+    </div>
+    <div class="ml-2 d-flex btn btn-secondary justify-content-center">
+        <a asp-action="Index" style="font-size:20px; color:white;"> Back</a>
+    </div>
+</div>

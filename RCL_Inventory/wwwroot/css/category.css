@@ -1,0 +1,58 @@
+﻿
+
+
+
+.btn-primary {
+    color: #def1f0;
+    background-color: #025ea1;
+    font-family:sans-serif;
+}
+.title {
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.content{
+height:auto;
+}
+
+.col-sm-2 {
+    font-size: 18px;
+    font-family:sans-serif;
+}
+
+.col-sm-10 {
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+.control-label {
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.catName {
+    font-size: 18px;
+    font-family: sans-serif;
+}
+.catTitle {
+    font-size: 18px;
+    font-family: sans-serif;
+    text-align:center;
+    
+}
+
+.control-label {
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.righColum {
+    text-align:center;
+    font-size: 15px;
+    font-family: sans-serif;
+}
+

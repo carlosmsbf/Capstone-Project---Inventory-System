@@ -1,0 +1,30 @@
+﻿
+.card-header {
+    margin-bottom: 15px 0;
+    background: #025ea1;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    -o-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 3px;
+    font-family: sans-serif;
+    color: #def1f0;
+    text-align:center;
+    font-size:25px;
+   
+}
+
+
+.display {
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+.btn-primary {
+    color: #def1f0;
+    background-color: #025ea1;
+    font-family: sans-serif;
+    font-size:30px;
+    text-align:center;
+}

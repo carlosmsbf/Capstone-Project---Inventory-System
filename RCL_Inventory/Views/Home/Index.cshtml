@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/css/sitee.css" />
+<link rel="stylesheet" href="~/css/home.css" />
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+
+
+<hr />
+<br />
+<hr class="midleLine" />
+<br />
+<hr />
+<p>
+
+</p>
+
+<div class="cardBox">
+
+    @if (signInManager.IsSignedIn(User))
+    {
+        <div class="card" onclick="location.href='@Url.Action("", "Categories")'">
+            <div>
+
+                <div class="contentBox"></div>
+                <div class="iconBx">
+
+                    <icon-icon name="category"><a asp-area="" asp-controller="Categories" asp-action="Index"><i class='fas fa-tags'></i></a>
+
+                </div>
+                <ul>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Categories" asp-action="Index">Categories</a></li>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Categories" asp-action="Create">New Product Category</a></li>
+                </ul>
+            </div>
+
+        </div>
+    }
+
+    @if (signInManager.IsSignedIn(User))
+    {
+        <div class="card" onclick="location.href='@Url.Action("", "Products")'">
+            <div>
+                <div class="contentBox"></div>
+                <div class="iconBx">
+                    <icon-icon name="category"><a asp-area="" asp-controller="Products" asp-action="Index"><i class='fas fa-cubes'></i></a>
+                </div>
+                <ul>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Products" asp-action="Index">Products</a></li>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Products" asp-action="Create">Create a new Product</a></li>
+                </ul>
+            </div>
+        </div>
+    }
+
+
+
+    @if (signInManager.IsSignedIn(User))
+    {
+<div class="card" onclick="location.href='@Url.Action("", "Transactions")'">
+ 
+            <div class="iconBx">
+                <icon-icon name="category"><a asp-area="" asp-controller="Transactions" asp-action="Index"><i class='fas fa-exchange-alt'></i></a>
+            </div>
+            <div class="contentBox" style="text-align:center"><a asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a></div>
+
+        </div>
+
+    
+
+
+    }
+
+    @inject SignInManager<User> signInManager
+    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <div class="card" onclick="location.href='@Url.Action("", "Addresses")'" >
+            <div>
+                <div class="contentBox"></div>
+                <div class="iconBx">
+                    <icon-icon name="category"><a asp-area="" asp-controller="Addresses" asp-action="Index"><i class='far fa-id-card'></i></a>
+                </div>
+                <ul>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Addresses" asp-action="Index">Addresses</a></li>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Addresses" asp-action="Create">Create a new Address</a></li>
+                </ul>
+            </div>
+        </div>
+
+    }
+
+    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <div class="card" onclick="location.href='@Url.Action("", "Suppliers")'">
+            <div>
+                <div class="contentBox"></div>
+                <div class="iconBx">
+                    <icon-icon name="category"><a asp-area="" asp-controller="Supplieres" asp-action="Index"><i class='fas fa-handshake'></i></a>
+                </div>
+                <ul>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Suppliers" asp-action="Index">Suppliers</a></li>
+                    <li style="list-style-type:none"><a asp-area="" asp-controller="Suppliers" asp-action="Create">Create a new Supplier</a></li>
+                </ul>
+            </div>
+        </div>
+    }
+
+    <div class="card" onclick="location.href='@Url.Action("", "AboutUs")'" >
+        <div class="iconBx">
+            <icon-icon name="category"><a asp-area="" asp-controller="AboutUs" asp-action="Index"><i class='fas fa-users'></i></a>
+        </div>
+        <div>
+            <div class="contentBox" style="text-align:center">About Us</div>
+        </div>
+
+    </div>
+
+    <div class="card" onclick="location.href='@Url.Action("", "Help")'" >
+            <div>
+                <div class="iconBx">
+                    <icon-icon name="category"><a asp-area="" asp-controller="Help" asp-action="Index"><i class='far fa-question-circle'></i></a>
+                </div>
+                <div class="contentBox" style="text-align:center">Help</div>
+
+            </div>
+    </div>
+
+
+    <div class="card"  onclick="location.href='@Url.Action("", "ContactUs")'" >
+        <div>
+            <div class="iconBx">
+               
+                <icon-icon name="category"><a asp-area="" asp-controller="ContactUs" asp-action="Index"><i class='fas fa-headset'></i></a>
+            </div>
+            <div class="contentBox" style="text-align:center">Contact Us</div>
+        </div>
+    </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</div>
+
+<hr class="midleLine" />
+
+
+
+
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
